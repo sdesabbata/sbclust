@@ -1,3 +1,15 @@
+###################################################################################################
+#
+# A bagged clustering function derived from the bclust function of the e1071 package
+# but using only a sample of the original dataset.
+# See: https://cran.r-project.org/web/packages/e1071
+#
+# Author: Stefano De Sabbata
+# Date: April 3rd, 2022
+# Licence: GPL-3
+#
+###################################################################################################
+
 "sbclust" <-
   function (x, centers = 2, iter.base = 10, minsize = 0,
             dist.method = "euclidean", hclust.method = "average",
@@ -66,7 +78,7 @@
     }
     object$allcenters <-
       object$allcenters[complete.cases(object$allcenters),,drop=FALSE]
-    object$allcluster <- class::knn1(object$allcenters, x,
+    object$allcluster <- knn1(object$allcenters, x,
                                      factor(1:nrow(object$allcenters)))
 
     if(minsize > 0){
@@ -96,8 +108,8 @@
   if(missing(x))
     allcluster <- object$allcluster
   else
-    allcluster <- class::knn1(object$allcenters, x,
-                              factor(1:nrow(object$allcenters)))
+    allcluster <- knn1(object$allcenters, x,
+                       factor(1:nrow(object$allcenters)))
 
   return(object$members[allcluster, k - 1])
 }
@@ -224,8 +236,8 @@ prune.bclust <- function(object, x, minsize=1, dohclust=FALSE, ...){
 
   ok <- FALSE
   while(!all(ok)){
-    object$allcluster <- class::knn1(object$allcenters, x,
-                                     factor(1:nrow(object$allcenters)))
+    object$allcluster <- knn1(object$allcenters, x,
+                              factor(1:nrow(object$allcenters)))
 
     ok <- table(object$allcluster) >= minsize
     object$allcenters <- object$allcenters[ok, ]
