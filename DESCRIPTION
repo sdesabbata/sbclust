@@ -1,6 +1,6 @@
 Package: sbclust
 Title: Sample-based bagged clustering
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
   person("Stefano", "De Sabbata", , "s.desabbata@le.ac.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2750-7579"))
 Description: Bagged clustering based on samples.

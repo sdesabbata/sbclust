@@ -82,6 +82,7 @@
         tryres <- try(CLUSFUN(x1, centers = base.centers, ...))
         if(!inherits(tryres, "try-error")) break
       }
+      cat("\n")
       options(show.error.messages = optSEM)
       if(m==20)
         stop(paste("Could not find valid cluster solution in 20 replications\n"))
