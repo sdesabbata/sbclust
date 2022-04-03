@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of sbclust is to provide an approach to cluster large datasets through a sample-based bagged clustering algorithm, which is effectively just the `bclust` function from the `e1071` package with one tiny edit that allows to grab a sample of the dataset for each run instead of the whole dataset.
+The goal of sbclust is to provide an approach to cluster large datasets through a sample-based bagged clustering algorithm, which is effectively just the `bclust` function from the [e1071](https://cran.r-project.org/web/packages/e1071/index.html) package with one tiny edit that allows to grab a sample of the dataset for each run instead of the whole dataset.
 
 ## Installation
 

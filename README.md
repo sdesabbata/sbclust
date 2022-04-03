@@ -8,9 +8,10 @@
 
 The goal of sbclust is to provide an approach to cluster large datasets
 through a sample-based bagged clustering algorithm, which is effectively
-just the `bclust` function from the `e1071` package with one tiny edit
-that allows to grab a sample of the dataset for each run instead of the
-whole dataset.
+just the `bclust` function from the
+[e1071](https://cran.r-project.org/web/packages/e1071/index.html)
+package with one tiny edit that allows to grab a sample of the dataset
+for each run instead of the whole dataset.
 
 ## Installation
 
@@ -111,15 +112,11 @@ clustering_result <-
   )
 #> Committee Member: 1(1)
 #>  2(1)
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 1500000)
-#> 
 #>  3(1)
 #>  4(1)
 #>  5(1)
 #>  6(1)
 #>  7(1)
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 1500000)
-#> 
 #>  8(1)
 #>  9(1)
 #>  10(1)
@@ -130,7 +127,7 @@ end_time <- Sys.time()
 
 # Check time lapsed
 end_time - start_time
-#> Time difference of 2.67084 secs
+#> Time difference of 2.6321 secs
 
 # Save results
 test_dataset["sbclust"] <- clustering_result$cluster
@@ -162,10 +159,10 @@ centres_mean
 #> [4,]    5   -2
 #> [5,]   -5    4
 clustering_result$centers
-#>             [,1]        [,2]
-#> [1,] -2.96229101 -2.98186875
-#> [2,]  0.00299013  0.02204801
-#> [3,]  4.99214533 -2.01441956
-#> [4,]  3.99986538  2.98577007
-#> [5,] -4.99712398  3.99011194
+#>              [,1]        [,2]
+#> [1,] -4.996561644  3.98322325
+#> [2,] -2.979983834 -2.98478670
+#> [3,]  3.998812323  2.97560647
+#> [4,]  4.994837529 -2.04239691
+#> [5,] -0.009966978  0.03353502
 ```
