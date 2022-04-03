@@ -39,6 +39,7 @@ test_that("Test sample-based clustering", {
     cluster = values_cluster
   )
 
+  # Plot
   # plot(
   #   test_dataset$x, test_dataset$y,
   #   col = test_dataset$cluster,
@@ -46,25 +47,26 @@ test_that("Test sample-based clustering", {
   #   cex = 0.2
   # )
 
+  # Clustering
   clustering_result <-
     sbclust(
       test_dataset[,c("x", "y")],
       centers = 5,
       iter.max = 5000,
     )
-
-  clustering_result_centres <-
-    centers.sbclust(clustering_result, 5)
-
-  centres_mean
-  clustering_result_centres
-
+  # Save results
   test_dataset["sbclust"] <- clustering_result$cluster
 
+  # Plot
   # plot(
   #   test_dataset$x, test_dataset$y,
   #   col = test_dataset$sbclust,
   #   pch = 19,
   #   cex = 0.2
   # )
+
+  # Comparison
+  centres_mean
+  clustering_result$centers
+
 })
