@@ -3,7 +3,7 @@
 #' A bagged clustering function derived from the bclust function of the e1071 package but using only a sample of the original dataset.
 #' See: https://cran.r-project.org/web/packages/e1071
 #'
-#' @param x Matrix of inputs (or object of class "bclust" for plot).
+#' @param x Matrix of inputs (or object of class "bclust" from the e1071 package for plot).
 #' @param centers, k Number of clusters.
 #' @param iter.base Number of runs of the base cluster algorithm.
 #' @param minsize Minimum number of points in a base cluster.
@@ -18,7 +18,7 @@
 #' @param sample_prop Proportion of the whole dataset to sample. The default value 0.01 results in samples which are 1% of the size of the original dataset.
 #' @param weights Vector of length nrow(x), weights for the resampling. By default all observations have equal weight.
 #' @param maxcluster Maximum number of clusters memberships are to be computed for.
-#' @param ... Optional arguments top be passed to the base method in bclust, ignored in plot.
+#' @param ... Optional arguments top be passed to the base method in sbclust, ignored in plot.
 #'
 #' @return return objects of class "bclust" from the e1071 package.
 #' @export
@@ -95,18 +95,18 @@
                                      factor(1:nrow(object$allcenters)))
 
     if(minsize > 0){
-      object <- prune.bclust(object, x, minsize=minsize)
+      object <- prune.sbclust(object, x, minsize=minsize)
     }
 
     if (verbose)
       cat("\nComputing Hierarchical Clustering\n")
-    object <- hclust.bclust(object, x = x, centers = centers,
+    object <- hclust.sbclust(object, x = x, centers = centers,
                             final.kmeans = final.kmeans,
                             docmdscale=docmdscale)
     object
   }
 
-"centers.bclust" <- function (object, k)
+"centers.sbclust" <- function (object, k)
 {
   centers <- matrix(0, nrow = k, ncol = ncol(object$allcenters))
   for (m in 1:k) {
@@ -116,7 +116,7 @@
   centers
 }
 
-"clusters.bclust" <- function (object, k, x=NULL)
+"clusters.sbclust" <- function (object, k, x=NULL)
 {
   if(missing(x))
     allcluster <- object$allcluster
@@ -128,7 +128,7 @@
 }
 
 
-"hclust.bclust" <-
+"hclust.sbclust" <-
   function (object, x, centers, dist.method = object$dist.method,
             hclust.method = object$hclust.method, final.kmeans = FALSE,
             docmdscale = FALSE, maxcluster=object$maxcluster)
@@ -147,8 +147,8 @@
     }
 
     object$members <- cutree(object$hclust, 2:maxcluster)
-    object$cluster <- clusters.bclust(object, centers)
-    object$centers <- centers.bclust(object, centers)
+    object$cluster <- clusters.sbclust(object, centers)
+    object$centers <- centers.sbclust(object, centers)
     if (final.kmeans) {
       kmeansres <- kmeans(x, centers = object$centers)
       object$centers <- kmeansres$centers
@@ -159,7 +159,7 @@
 
 
 
-"plot.bclust" <-
+"plot.sbclust" <-
   function (x, maxcluster=x$maxcluster,
             main = deparse(substitute(x)), ...)
   {
@@ -186,7 +186,7 @@
     layout(1)
   }
 
-"boxplot.bclust" <-
+"boxplot.sbclust" <-
   function (x, n = nrow(x$centers), bycluster = TRUE,
             main = deparse(substitute(x)), oneplot=TRUE,
             which=1:n, ...)
@@ -211,7 +211,7 @@
           par(mfrow = c(ceiling(N/2), 2))
         }
       }
-      tcluster <- table(clusters.bclust(x, n))
+      tcluster <- table(clusters.sbclust(x, n))
       for (k in which) {
         boxplot(cendf[memb == k, ], col = "grey",
                 names = rep("",ncol(cendf)),
@@ -245,7 +245,7 @@
   }
 
 ### prune centers that contain not at least minsize data points
-prune.bclust <- function(object, x, minsize=1, dohclust=FALSE, ...){
+prune.sbclust <- function(object, x, minsize=1, dohclust=FALSE, ...){
 
   ok <- FALSE
   while(!all(ok)){
@@ -256,7 +256,7 @@ prune.bclust <- function(object, x, minsize=1, dohclust=FALSE, ...){
     object$allcenters <- object$allcenters[ok, ]
   }
   if(dohclust){
-    object <- hclust.bclust(object, x, nrow(object$centers), ...)
+    object <- hclust.sbclust(object, x, nrow(object$centers), ...)
   }
   object
 }

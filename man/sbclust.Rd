@@ -24,7 +24,7 @@ sbclust(
 )
 }
 \arguments{
-\item{x}{Matrix of inputs (or object of class "bclust" for plot).}
+\item{x}{Matrix of inputs (or object of class "bclust" from the e1071 package for plot).}
 
 \item{centers, }{k Number of clusters.}
 
@@ -54,7 +54,7 @@ sbclust(
 
 \item{maxcluster}{Maximum number of clusters memberships are to be computed for.}
 
-\item{...}{Optional arguments top be passed to the base method in bclust, ignored in plot.}
+\item{...}{Optional arguments top be passed to the base method in sbclust, ignored in plot.}
 }
 \value{
 return objects of class "bclust" from the e1071 package.

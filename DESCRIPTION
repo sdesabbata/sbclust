@@ -14,3 +14,6 @@ Imports:
     e1071,
     methods,
     proxy
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
