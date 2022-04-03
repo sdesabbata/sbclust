@@ -11,5 +11,6 @@ RoxygenNote: 7.1.2
 Imports:
     class,
     cluster,
+    e1071,
     methods,
     proxy

@@ -8,10 +8,12 @@ importFrom("stats", "cmdscale", "complete.cases", "cutree",
              "napredict", "optim", "pchisq", "pnorm", "ppoints",
              "predict", "qnorm", "quantile", "rnorm", "runif", "sd",
              "terms", "time", "ts", "var", "xtabs")
-
 importFrom("proxy", "dist")
 importFrom("utils", "head")
 importFrom("methods", "as", "getClass", "new")
 importFrom("class", "knn", "knn1")
 if(getRversion() >= "2.5.0")
     importFrom("utils", "write.table")
+importFrom("e1071", "bclust")
+
+export(sbclust)

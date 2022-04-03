@@ -1,14 +1,27 @@
-###################################################################################################
-#
-# A bagged clustering function derived from the bclust function of the e1071 package
-# but using only a sample of the original dataset.
-# See: https://cran.r-project.org/web/packages/e1071
-#
-# Author: Stefano De Sabbata
-# Date: April 3rd, 2022
-# Licence: GPL-3
-#
-###################################################################################################
+#' Sample-based bagged clustering
+#'
+#' A bagged clustering function derived from the bclust function of the e1071 package but using only a sample of the original dataset.
+#' See: https://cran.r-project.org/web/packages/e1071
+#'
+#' @param x Matrix of inputs (or object of class "bclust" for plot).
+#' @param centers, k Number of clusters.
+#' @param iter.base Number of runs of the base cluster algorithm.
+#' @param minsize Minimum number of points in a base cluster.
+#' @param dist.method Distance method used for the hierarchical clustering, see dist for available distances.
+#' @param hclust.method Linkage method used for the hierarchical clustering, see hclust for available methods.
+#' @param base.method Partitioning cluster method used as base algorithm.
+#' @param base.centers Number of centers used in each repetition of the base method.
+#' @param verbose Output status messages.
+#' @param final.kmeans If TRUE, a final kmeans step is performed using the output of the bagged clustering as initialization.
+#' @param docmdscale Logical, if TRUE a cmdscale result is included in the return value.
+#' @param resample Logical, if TRUE the base method is run on bootstrap samples of x, else directly on x.
+#' @param sample_prop Proportion of the whole dataset to sample. The default value 0.01 results in samples which are 1% of the size of the original dataset.
+#' @param weights Vector of length nrow(x), weights for the resampling. By default all observations have equal weight.
+#' @param maxcluster Maximum number of clusters memberships are to be computed for.
+#' @param ... Optional arguments top be passed to the base method in bclust, ignored in plot.
+#'
+#' @return return objects of class "bclust" from the e1071 package.
+#' @export
 
 "sbclust" <-
   function (x, centers = 2, iter.base = 10, minsize = 0,
