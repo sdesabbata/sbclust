@@ -27,8 +27,8 @@
   function (x, centers = 2, iter.base = 10, minsize = 0,
             dist.method = "euclidean", hclust.method = "average",
             base.method = "kmeans", base.centers = 20,
-            verbose = TRUE, final.kmeans = FALSE, docmdscale=FALSE,
-            resample=TRUE, sample_prop = 0.01, weights=NULL, maxcluster=base.centers, ...)
+            verbose = TRUE, final.kmeans = FALSE, docmdscale = FALSE,
+            resample = TRUE, sample_prop = 0.01, weights = NULL, maxcluster=base.centers, ...)
   {
     x <- as.matrix(x)
     xr <- nrow(x)
@@ -72,6 +72,7 @@
               base.centers,
               floor(xr*sample_prop)
             ),
+            replace = resample,
             prob = weights
           ),
         ]
@@ -82,7 +83,7 @@
         tryres <- try(CLUSFUN(x1, centers = base.centers, ...))
         if(!inherits(tryres, "try-error")) break
       }
-      cat("\n")
+      #cat("\n")
       options(show.error.messages = optSEM)
       if(m==20)
         stop(paste("Could not find valid cluster solution in 20 replications\n"))
