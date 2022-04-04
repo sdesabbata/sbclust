@@ -110,24 +110,16 @@ clustering_result <-
     centers = 5,
     iter.max = 5000,
   )
-#> Committee Member: 1(1)
-#>  2(1)
-#>  3(1)
-#>  4(1)
-#>  5(1)
-#>  6(1)
-#>  7(1)
-#>  8(1)
-#>  9(1)
-#>  10(1)
-#> 
+#> Committee Member: 1(1) 2(1) 3(1) 4(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 1500000)
+#>  5(1) 6(1) 7(1) 8(1) 9(1) 10(1)
 #> Computing Hierarchical Clustering
 
 end_time <- Sys.time()
 
 # Check time lapsed
 end_time - start_time
-#> Time difference of 2.6321 secs
+#> Time difference of 3.426717 secs
 
 # Save results
 test_dataset["sbclust"] <- clustering_result$cluster
@@ -159,10 +151,10 @@ centres_mean
 #> [4,]    5   -2
 #> [5,]   -5    4
 clustering_result$centers
-#>              [,1]        [,2]
-#> [1,] -4.996561644  3.98322325
-#> [2,] -2.979983834 -2.98478670
-#> [3,]  3.998812323  2.97560647
-#> [4,]  4.994837529 -2.04239691
-#> [5,] -0.009966978  0.03353502
+#>             [,1]        [,2]
+#> [1,] -2.90489517 -2.96415826
+#> [2,]  0.01064644  0.03726446
+#> [3,] -4.99965833  4.04189966
+#> [4,]  3.99774840  3.02661789
+#> [5,]  4.99963861 -2.06799576
 ```

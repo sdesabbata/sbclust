@@ -139,4 +139,3 @@ Compare the list of test centers with the results of the clustering procedure.
 centres_mean
 clustering_result$centers
 ```
-
