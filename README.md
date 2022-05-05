@@ -29,6 +29,9 @@ This is a basic example of clustering a large dataset using `sbclust`:
 
 ``` r
 library(sbclust)
+
+# Set seed
+set.seed(731)
 ```
 
 Create test dataset containing three million cases with two attributes
@@ -110,16 +113,14 @@ clustering_result <-
     centers = 5,
     iter.max = 5000,
   )
-#> Committee Member: 1(1) 2(1)
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 1500000)
-#>  3(1) 4(1) 5(1) 6(1) 7(1) 8(1) 9(1) 10(1)
+#> Committee Member: 1(1) 2(1) 3(1) 4(1) 5(1) 6(1) 7(1) 8(1) 9(1) 10(1)
 #> Computing Hierarchical Clustering
 
 end_time <- Sys.time()
 
 # Check time lapsed
 end_time - start_time
-#> Time difference of 4.39543 secs
+#> Time difference of 2.752387 secs
 
 # Save results
 test_dataset["sbclust"] <- clustering_result$cluster
@@ -151,13 +152,15 @@ centres_mean
 #> [4,]    5   -2
 #> [5,]   -5    4
 clustering_result$centers
-#>             [,1]         [,2]
-#> [1,] -5.00067220  3.997514959
-#> [2,] -0.01726185 -0.003989398
-#> [3,]  3.99938078  2.958830824
-#> [4,] -2.98481256 -2.978829030
-#> [5,]  4.98959292 -2.016939714
+#>             [,1]        [,2]
+#> [1,] -2.93495861 -2.97712309
+#> [2,] -4.99697385  4.00287657
+#> [3,]  4.00143651  2.96656323
+#> [4,]  4.99873275 -2.06894441
+#> [5,]  0.02995233  0.03501335
 ```
+
+### Comparison with `e1071::bclust`
 
 Run the `e1071::bclust` algorithm for comparison.
 
@@ -198,7 +201,7 @@ e1071_bclust_end_time <- Sys.time()
 
 # Check time lapsed
 e1071_bclust_end_time - e1071_bclust_start_time
-#> Time difference of 51.96697 secs
+#> Time difference of 44.46283 secs
 
 # Save results
 test_dataset["e1071_bclust"] <- e1071_bclust_result$cluster
@@ -231,13 +234,13 @@ centres_mean
 #> [5,]   -5    4
 e1071_bclust_result$centers
 #>             [,1]        [,2]
-#> [1,]  0.05314523  0.04469808
-#> [2,]  4.96814331 -1.91085371
-#> [3,]  4.00041030  3.10881850
-#> [4,] -2.92967062 -2.96602800
-#> [5,] -4.99764063  4.03409381
+#> [1,]  0.04899088 -0.02484013
+#> [2,] -3.03003890 -2.98202968
+#> [3,]  3.99900952  3.12774237
+#> [4,]  4.99582723 -2.01047696
+#> [5,] -4.99540728  3.96691885
 ```
 
 The examples above illustrate how, when working with large datasets,
 `sbclust` can achieve similar results as `e1071::bclust` in a fraction
-(8.46%) of the time.
+(6.19%) of the time.

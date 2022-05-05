@@ -35,6 +35,9 @@ This is a basic example of clustering a large dataset using `sbclust`:
 
 ```{r load_library}
 library(sbclust)
+
+# Set seed
+set.seed(731)
 ```
 
 Create test dataset containing three million cases with two attributes and five clusters, using approach suggested by [Wang et al. (2008)](https://onlinelibrary.wiley.com/doi/10.1002/int.20268).
@@ -139,6 +142,8 @@ Compare the list of test centers with the results of the clustering procedure.
 centres_mean
 clustering_result$centers
 ```
+
+### Comparison with `e1071::bclust`
 
 Run the `e1071::bclust` algorithm for comparison.
 
