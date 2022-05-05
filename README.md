@@ -120,7 +120,7 @@ end_time <- Sys.time()
 
 # Check time lapsed
 end_time - start_time
-#> Time difference of 2.752387 secs
+#> Time difference of 4.55909 secs
 
 # Save results
 test_dataset["sbclust"] <- clustering_result$cluster
@@ -201,7 +201,7 @@ e1071_bclust_end_time <- Sys.time()
 
 # Check time lapsed
 e1071_bclust_end_time - e1071_bclust_start_time
-#> Time difference of 44.46283 secs
+#> Time difference of 1.124033 mins
 
 # Save results
 test_dataset["e1071_bclust"] <- e1071_bclust_result$cluster
@@ -241,6 +241,17 @@ e1071_bclust_result$centers
 #> [5,] -4.99540728  3.96691885
 ```
 
+``` r
+table(test_dataset[, c("sbclust", "e1071_bclust")])
+#>        e1071_bclust
+#> sbclust      1      2      3      4      5
+#>       1   4935 601958      0      0      0
+#>       2      9      1      0      0 600224
+#>       3   1108      0 903142   1178      0
+#>       4     74      0      0 296467      0
+#>       5 590755     15      9     95     30
+```
+
 The examples above illustrate how, when working with large datasets,
 `sbclust` can achieve similar results as `e1071::bclust` in a fraction
-(6.19%) of the time.
+(405.6%) of the time.
