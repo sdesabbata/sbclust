@@ -110,16 +110,16 @@ clustering_result <-
     centers = 5,
     iter.max = 5000,
   )
-#> Committee Member: 1(1) 2(1) 3(1) 4(1) 5(1) 6(1) 7(1) 8(1) 9(1)
+#> Committee Member: 1(1) 2(1)
 #> Warning: Quick-TRANSfer stage steps exceeded maximum (= 1500000)
-#>  10(1)
+#>  3(1) 4(1) 5(1) 6(1) 7(1) 8(1) 9(1) 10(1)
 #> Computing Hierarchical Clustering
 
 end_time <- Sys.time()
 
 # Check time lapsed
 end_time - start_time
-#> Time difference of 2.874979 secs
+#> Time difference of 4.39543 secs
 
 # Save results
 test_dataset["sbclust"] <- clustering_result$cluster
@@ -151,12 +151,12 @@ centres_mean
 #> [4,]    5   -2
 #> [5,]   -5    4
 clustering_result$centers
-#>             [,1]        [,2]
-#> [1,]  4.00117785  2.95504323
-#> [2,]  4.99936706 -2.06528615
-#> [3,] -2.97749694 -2.98535817
-#> [4,]  0.02980787  0.02093155
-#> [5,] -4.99781581  3.98430610
+#>             [,1]         [,2]
+#> [1,] -5.00067220  3.997514959
+#> [2,] -0.01726185 -0.003989398
+#> [3,]  3.99938078  2.958830824
+#> [4,] -2.98481256 -2.978829030
+#> [5,]  4.98959292 -2.016939714
 ```
 
 Run the `e1071::bclust` algorithm for comparison.
@@ -198,7 +198,7 @@ e1071_bclust_end_time <- Sys.time()
 
 # Check time lapsed
 e1071_bclust_end_time - e1071_bclust_start_time
-#> Time difference of 48.94187 secs
+#> Time difference of 51.96697 secs
 
 # Save results
 test_dataset["e1071_bclust"] <- e1071_bclust_result$cluster
@@ -231,13 +231,13 @@ centres_mean
 #> [5,]   -5    4
 e1071_bclust_result$centers
 #>             [,1]        [,2]
-#> [1,]  0.01850614 -0.05947054
-#> [2,] -3.00438862 -2.98098877
-#> [3,] -4.99873225  3.99163683
-#> [4,]  4.00214013  3.02187993
-#> [5,]  4.98028792 -1.98272758
+#> [1,]  0.05314523  0.04469808
+#> [2,]  4.96814331 -1.91085371
+#> [3,]  4.00041030  3.10881850
+#> [4,] -2.92967062 -2.96602800
+#> [5,] -4.99764063  4.03409381
 ```
 
-The examples above illustrates how, when working with large datasets,
+The examples above illustrate how, when working with large datasets,
 `sbclust` can achieve similar results as `e1071::bclust` in a fraction
-(5.87%) of the time.
+(8.46%) of the time.
