@@ -110,14 +110,16 @@ clustering_result <-
     centers = 5,
     iter.max = 5000,
   )
-#> Committee Member: 1(1) 2(1) 3(1) 4(1) 5(1) 6(1) 7(1) 8(1) 9(1) 10(1)
+#> Committee Member: 1(1) 2(1) 3(1) 4(1) 5(1) 6(1) 7(1) 8(1) 9(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 1500000)
+#>  10(1)
 #> Computing Hierarchical Clustering
 
 end_time <- Sys.time()
 
 # Check time lapsed
 end_time - start_time
-#> Time difference of 3.014737 secs
+#> Time difference of 2.874979 secs
 
 # Save results
 test_dataset["sbclust"] <- clustering_result$cluster
@@ -150,11 +152,11 @@ centres_mean
 #> [5,]   -5    4
 clustering_result$centers
 #>             [,1]        [,2]
-#> [1,] -2.91262739 -2.97283236
-#> [2,]  4.99138221 -2.02138599
-#> [3,]  3.99526861  2.99385082
-#> [4,]  0.02215695  0.06394518
-#> [5,] -4.99873779  4.00133887
+#> [1,]  4.00117785  2.95504323
+#> [2,]  4.99936706 -2.06528615
+#> [3,] -2.97749694 -2.98535817
+#> [4,]  0.02980787  0.02093155
+#> [5,] -4.99781581  3.98430610
 ```
 
 Run the `e1071::bclust` algorithm for comparison.
@@ -196,7 +198,7 @@ e1071_bclust_end_time <- Sys.time()
 
 # Check time lapsed
 e1071_bclust_end_time - e1071_bclust_start_time
-#> Time difference of 44.14835 secs
+#> Time difference of 48.94187 secs
 
 # Save results
 test_dataset["e1071_bclust"] <- e1071_bclust_result$cluster
@@ -228,14 +230,14 @@ centres_mean
 #> [4,]    5   -2
 #> [5,]   -5    4
 e1071_bclust_result$centers
-#>             [,1]         [,2]
-#> [1,]  0.01407398 -0.003499294
-#> [2,]  4.98238362 -2.005154326
-#> [3,]  3.98914885  2.990380893
-#> [4,] -4.99598621  3.958669306
-#> [5,] -2.92697971 -2.972131964
+#>             [,1]        [,2]
+#> [1,]  0.01850614 -0.05947054
+#> [2,] -3.00438862 -2.98098877
+#> [3,] -4.99873225  3.99163683
+#> [4,]  4.00214013  3.02187993
+#> [5,]  4.98028792 -1.98272758
 ```
 
 The examples above illustrates how, when working with large datasets,
-`sbclust` can achieve similar results as `e1071::bclus` in a fraction
-(6.83%) of the time.
+`sbclust` can achieve similar results as `e1071::bclust` in a fraction
+(5.87%) of the time.

@@ -181,4 +181,4 @@ centres_mean
 e1071_bclust_result$centers
 ```
 
-The examples above illustrates how, when working with large datasets, `sbclust` can achieve similar results as `e1071::bclus` in a fraction (`r round( (as.numeric(end_time - start_time) / as.numeric(e1071_bclust_end_time - e1071_bclust_start_time)) * 100, digits = 2)`%) of the time.
+The examples above illustrates how, when working with large datasets, `sbclust` can achieve similar results as `e1071::bclust` in a fraction (`r round( (as.numeric(end_time - start_time) / as.numeric(e1071_bclust_end_time - e1071_bclust_start_time)) * 100, digits = 2)`%) of the time.
