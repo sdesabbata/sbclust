@@ -139,3 +139,46 @@ Compare the list of test centers with the results of the clustering procedure.
 centres_mean
 clustering_result$centers
 ```
+
+Run the `e1071::bclust` algorithm for comparison.
+
+```{r cluster_data_e1071_bclust}
+# Clustering
+e1071_bclust_start_time <- Sys.time()
+
+e1071_bclust_result <-
+  e1071::bclust(
+    test_dataset[,c("x", "y")],
+    centers = 5,
+    iter.max = 5000,
+  )
+
+e1071_bclust_end_time <- Sys.time()
+
+# Check time lapsed
+e1071_bclust_end_time - e1071_bclust_start_time
+
+# Save results
+test_dataset["e1071_bclust"] <- e1071_bclust_result$cluster
+```
+
+Plot the clustering results.
+
+```{r plot_results_e1071_bclust}
+plot(
+  test_dataset$x, test_dataset$y,
+  col = test_dataset$e1071_bclust,
+  pch = 19,
+  cex = 0.2
+)
+```
+
+Compare the list of test centers with the results of the clustering procedure.
+
+```{r compare_centers_e1071_bclust}
+# Comparison
+centres_mean
+e1071_bclust_result$centers
+```
+
+The examples above illustrates how, when working with large datasets, `sbclust` can achieve similar results as `e1071::bclus` in a fraction (`r round( (as.numeric(end_time - start_time) / as.numeric(e1071_bclust_end_time - e1071_bclust_start_time)) * 100, digits = 2)`%) of the time.

@@ -110,16 +110,14 @@ clustering_result <-
     centers = 5,
     iter.max = 5000,
   )
-#> Committee Member: 1(1) 2(1) 3(1) 4(1)
-#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 1500000)
-#>  5(1) 6(1) 7(1) 8(1) 9(1) 10(1)
+#> Committee Member: 1(1) 2(1) 3(1) 4(1) 5(1) 6(1) 7(1) 8(1) 9(1) 10(1)
 #> Computing Hierarchical Clustering
 
 end_time <- Sys.time()
 
 # Check time lapsed
 end_time - start_time
-#> Time difference of 3.426717 secs
+#> Time difference of 3.014737 secs
 
 # Save results
 test_dataset["sbclust"] <- clustering_result$cluster
@@ -152,9 +150,92 @@ centres_mean
 #> [5,]   -5    4
 clustering_result$centers
 #>             [,1]        [,2]
-#> [1,] -2.90489517 -2.96415826
-#> [2,]  0.01064644  0.03726446
-#> [3,] -4.99965833  4.04189966
-#> [4,]  3.99774840  3.02661789
-#> [5,]  4.99963861 -2.06799576
+#> [1,] -2.91262739 -2.97283236
+#> [2,]  4.99138221 -2.02138599
+#> [3,]  3.99526861  2.99385082
+#> [4,]  0.02215695  0.06394518
+#> [5,] -4.99873779  4.00133887
 ```
+
+Run the `e1071::bclust` algorithm for comparison.
+
+``` r
+# Clustering
+e1071_bclust_start_time <- Sys.time()
+
+e1071_bclust_result <-
+  e1071::bclust(
+    test_dataset[,c("x", "y")],
+    centers = 5,
+    iter.max = 5000,
+  )
+#> Committee Member: 1(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#>  2(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#>  3(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#>  4(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#>  5(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#>  6(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#>  7(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#>  8(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#>  9(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#>  10(1)
+#> Warning: Quick-TRANSfer stage steps exceeded maximum (= 150000000)
+#> 
+#> Computing Hierarchical Clustering
+
+e1071_bclust_end_time <- Sys.time()
+
+# Check time lapsed
+e1071_bclust_end_time - e1071_bclust_start_time
+#> Time difference of 44.14835 secs
+
+# Save results
+test_dataset["e1071_bclust"] <- e1071_bclust_result$cluster
+```
+
+Plot the clustering results.
+
+``` r
+plot(
+  test_dataset$x, test_dataset$y,
+  col = test_dataset$e1071_bclust,
+  pch = 19,
+  cex = 0.2
+)
+```
+
+<img src="man/figures/README-plot_results_e1071_bclust-1.png" width="100%" />
+
+Compare the list of test centers with the results of the clustering
+procedure.
+
+``` r
+# Comparison
+centres_mean
+#>      [,1] [,2]
+#> [1,]   -3   -3
+#> [2,]    0    0
+#> [3,]    4    3
+#> [4,]    5   -2
+#> [5,]   -5    4
+e1071_bclust_result$centers
+#>             [,1]         [,2]
+#> [1,]  0.01407398 -0.003499294
+#> [2,]  4.98238362 -2.005154326
+#> [3,]  3.98914885  2.990380893
+#> [4,] -4.99598621  3.958669306
+#> [5,] -2.92697971 -2.972131964
+```
+
+The examples above illustrates how, when working with large datasets,
+`sbclust` can achieve similar results as `e1071::bclus` in a fraction
+(6.83%) of the time.
